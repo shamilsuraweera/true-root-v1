@@ -1,50 +1,36 @@
-# Welcome to your Expo app 👋
+# 🌱 True Root — Traceability App (MVP)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**True Root** is a full-stack, mobile-first app that enables transparent lifecycle traceability for products across agricultural and factory-based supply chains. It leverages QR codes, event logging, and role-based access to ensure accountability from origin to end-user.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Project Goal
 
-   ```bash
-   npm install
-   ```
+The goal of this MVP is to build a **modular, open-source system** where Producers, Exporters, Buyers, and Admins can:
 
-2. Start the app
+- Record product batches and their transformations
+- Log trace events (e.g., drying, packaging, shipping)
+- Scan QR codes to view product history
+- Access only the data relevant to their role
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## ⚙️ Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+| Layer           | Stack                                                                 |
+|----------------|-----------------------------------------------------------------------|
+| **Frontend**    | React Native + Expo (TypeScript)                                      |
+| **Styling**     | TailwindCSS via NativeWind                                            |
+| **Routing**     | `expo-router`                                                         |
+| **State**       | React Context (Auth), optional Zustand for global state               |
+| **Backend**     | [Appwrite Cloud](https://appwrite.io) (auth, database, storage, etc.) |
+| **Auth**        | Appwrite Account + Session-based login                                |
+| **QR Codes**    | `expo-barcode-scanner`                                                |
+| **Location**    | `expo-location` (optional for event GPS)                              |
+| **Storage**     | Appwrite File Storage (PDFs, images)                                  |
+| **Dev Env**     | Docker DevContainer (VS Code)                                         |
+| **Testing**     | Jest + React Native Testing Library                                   |
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📁 Folder Structure
