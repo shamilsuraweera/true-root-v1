@@ -1,34 +1,41 @@
-# 🌱 True Root — Traceability App (MVP)
+# 🌱 True Root — Supply Chain Traceability App
 
-**True Root** is a full-stack, mobile-first app that enables transparent lifecycle traceability for products across agricultural and factory-based supply chains. It leverages QR codes, event logging, and role-based access to ensure accountability from origin to end-user.
+**True Root** is a mobile-first, full-stack traceability system that enables farmers, exporters, and buyers to record, track, and verify the entire lifecycle of agricultural or factory-based products — from origin to consumer — using QR codes, event logs, and secure role-based access.
 
----
+## 🛠 Tech Stack
 
-## 🚀 Project Goal
+- **Frontend:** React Native + Expo (TypeScript)
+- **Backend:** Appwrite Cloud (Auth, DB, Functions, Storage)
+- **Styling:** NativeWind (TailwindCSS for React Native)
+- **Routing:** `expo-router`
+- **QR Scanning:** `expo-barcode-scanner`
+- **Location:** `expo-location`
+- **Testing:** Jest, React Native Testing Library
 
-The goal of this MVP is to build a **modular, open-source system** where Producers, Exporters, Buyers, and Admins can:
+## ✅ MVP Features
 
-- Record product batches and their transformations
-- Log trace events (e.g., drying, packaging, shipping)
-- Scan QR codes to view product history
-- Access only the data relevant to their role
+- 🔐 Role-based authentication  
+- 📦 Batch creation with unique IDs  
+- 📄 Event logs with metadata + file support  
+- 📍 Optional GPS tagging  
+- 📷 QR code generation & scanning  
+- 🧾 Timeline view of batch history  
+- 🌐 Offline-ready architecture (coming soon)
 
----
+## 🧩 Roles & Permissions
 
-## ⚙️ Tech Stack
+| Role      | Capabilities                                                       |
+|-----------|---------------------------------------------------------------------|
+| Producer  | Create product batches, log transformation events                  |
+| Exporter  | Add shipping info, attach transport docs                           |
+| Buyer     | Scan QR codes to view batch history                                |
+| Admin     | Full visibility and control over system data                       |
 
-| Layer           | Stack                                                                 |
-|----------------|-----------------------------------------------------------------------|
-| **Frontend**    | React Native + Expo (TypeScript)                                      |
-| **Styling**     | TailwindCSS via NativeWind                                            |
-| **Routing**     | `expo-router`                                                         |
-| **State**       | React Context (Auth), optional Zustand for global state               |
-| **Backend**     | [Appwrite Cloud](https://appwrite.io) (auth, database, storage, etc.) |
-| **Auth**        | Appwrite Account + Session-based login                                |
-| **QR Codes**    | `expo-barcode-scanner`                                                |
-| **Location**    | `expo-location` (optional for event GPS)                              |
-| **Storage**     | Appwrite File Storage (PDFs, images)                                  |
-| **Dev Env**     | Docker DevContainer (VS Code)                                         |
-| **Testing**     | Jest + React Native Testing Library                                   |
+## 🧬 Data Model
 
----
+- **Users** (with role-based access)
+- **Products** (optional grouping layer)
+- **Batches** (trackable unit of goods)
+- **Events** (transformation, shipment, grading, etc.)
+- **QR Metadata** (links QR codes to batches)
+- **Files** (attachments to events or batches)
