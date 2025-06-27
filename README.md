@@ -32,5 +32,3 @@ The goal of this MVP is to build a **modular, open-source system** where Produce
 | **Testing**     | Jest + React Native Testing Library                                   |
 
 ---
-
-## 📁 Folder Structure
