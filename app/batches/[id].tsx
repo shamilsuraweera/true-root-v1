@@ -1,12 +1,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 
-const Main = () => {
+const Batches = () => {
   return (
     <View>
-      <Text>Main</Text>
+      <Text>Batches</Text>
     </View>
   );
 };
 
-export default Main;
+export default Batches;
