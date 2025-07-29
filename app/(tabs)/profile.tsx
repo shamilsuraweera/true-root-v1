@@ -1,26 +1,51 @@
 import Button from "@/components/button";
 import { useAuth } from "@/contexts/authcontext";
-import { Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 
 export default function ProfileScreen() {
   const { user, logout } = useAuth();
 
   return (
-    <View className="flex-1 justify-center items-center bg-primary px-6 space-y-4">
-      <Text className="text-light-100 text-2xl font-bold">Profile</Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      className="flex-1 bg-primary"
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="flex-1 justify-center items-center px-4 py-12">
+          <View className="w-full max-w-md bg-light-50 rounded-2xl p-6 shadow-lg space-y-6">
+            <Text className="text-3xl font-bold text-light-100 text-center">
+              Your Profile 👤
+            </Text>
 
-      <View className="w-full bg-dark-100 p-4 rounded-lg">
-        <Text className="text-light-100 mb-2">👤 Name:</Text>
-        <Text className="text-light-200 mb-2">{user?.name || "N/A"}</Text>
+            <View className="bg-white rounded-xl p-4 space-y-2 shadow-sm">
+              <Text className="text-gray-500 text-sm">Name</Text>
+              <Text className="text-lg font-semibold text-dark">
+                {user?.name || "N/A"}
+              </Text>
 
-        <Text className="text-light-100 mb-2">📧 Email:</Text>
-        <Text className="text-light-200 mb-2">{user?.email || "N/A"}</Text>
+              <Text className="text-gray-500 text-sm mt-4">Email</Text>
+              <Text className="text-lg font-semibold text-dark">
+                {user?.email || "N/A"}
+              </Text>
 
-        <Text className="text-light-100 mb-2">🆔 User ID:</Text>
-        <Text className="text-light-200">{user?.$id}</Text>
-      </View>
+              <Text className="text-gray-500 text-sm mt-4">User ID</Text>
+              <Text className="text-sm text-gray-700">{user?.$id}</Text>
+            </View>
 
-      <Button title="Logout" onPress={logout} />
-    </View>
+            <Button title="Logout" onPress={logout} />
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

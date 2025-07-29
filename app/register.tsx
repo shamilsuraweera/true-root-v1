@@ -1,12 +1,19 @@
 // filepath: app/register.tsx
 
 import Button from "@/components/button";
-import Input from "@/components/input";
 import { useAuth } from "@/contexts/authcontext";
 import { getCurrentUser, loginUser, registerUser } from "@/lib/appwrite";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -28,15 +35,13 @@ export default function RegisterScreen() {
       const newUser = await registerUser(email, password, name);
       console.log("✅ User created:", newUser);
 
-      // 🟢 Immediately login to create session
       await loginUser(email, password);
       const current = await getCurrentUser();
       console.log("👤 Current user:", current);
 
       setUser(current);
-      login(); // update auth state
-      router.replace("/"); // go to home (or /dashboard)
-
+      login();
+      router.replace("/");
     } catch (error: any) {
       Alert.alert("Registration Error", error.message || "Something went wrong");
     } finally {
@@ -45,21 +50,64 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View className="flex-1 bg-primary px-4 justify-center">
-      <Text className="text-light-100 text-2xl font-bold mb-6">Create Account</Text>
-
-      <Input label="Name" value={name} onChangeText={setName} />
-      <Input label="Email" value={email} onChangeText={setEmail} />
-      <Input label="Password" value={password} onChangeText={setPassword} />
-
-      <Button title={loading ? "Creating..." : "Register"} onPress={handleRegister} />
-
-      <Text
-        className="text-light-300 text-center mt-4"
-        onPress={() => router.push("/login")}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      className="flex-1 bg-primary"
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        Already have an account? <Text className="text-accent">Login</Text>
-      </Text>
-    </View>
+        <View className="flex-1 justify-center items-center px-4 py-12">
+          <View className="w-full max-w-md bg-light-50 rounded-2xl p-6 shadow-lg">
+            <Text className="text-3xl font-bold text-light-100 mb-6 text-center">
+              Create Account
+            </Text>
+
+            <TextInput
+              className="bg-white text-dark border border-gray-300 rounded-xl px-4 py-3 mb-4"
+              placeholder="Name"
+              placeholderTextColor="#999"
+              autoCapitalize="words"
+              value={name}
+              onChangeText={setName}
+            />
+
+            <TextInput
+              className="bg-white text-dark border border-gray-300 rounded-xl px-4 py-3 mb-4"
+              placeholder="Email"
+              placeholderTextColor="#999"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              value={email}
+              onChangeText={setEmail}
+            />
+
+            <TextInput
+              className="bg-white text-dark border border-gray-300 rounded-xl px-4 py-3 mb-6"
+              placeholder="Password"
+              placeholderTextColor="#999"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+            />
+
+            <Button
+              title={loading ? "Creating..." : "Register"}
+              onPress={handleRegister}
+            />
+
+            <Text
+              className="text-sm text-center text-gray-600 mt-4"
+              onPress={() => router.push("/login")}
+            >
+              Already have an account?{" "}
+              <Text className="text-accent underline">Login</Text>
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

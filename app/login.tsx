@@ -3,12 +3,19 @@ import { useAuth } from "@/contexts/authcontext";
 import { loginUser } from "@/lib/appwrite";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function LoginScreen() {
   const router = useRouter();
   const { login } = useAuth();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,7 +28,7 @@ export default function LoginScreen() {
     try {
       const session = await loginUser(email, password);
       console.log("✅ Login successful:", session);
-      login(); // update auth context
+      login();
       router.replace("/(tabs)");
     } catch (err: any) {
       console.error("❌ Login failed:", err);
@@ -30,35 +37,46 @@ export default function LoginScreen() {
   };
 
   return (
-    <View className="flex-1 justify-center p-4 bg-primary">
-      <Text className="text-light-100 text-2xl mb-4">Login</Text>
-
-      <TextInput
-        className="border border-light-200 rounded p-2 mb-4 text-white"
-        placeholder="Email"
-        placeholderTextColor="#ccc"
-        autoCapitalize="none"
-        keyboardType="email-address"
-        value={email}
-        onChangeText={setEmail}
-      />
-
-      <TextInput
-        className="border border-light-200 rounded p-2 mb-4 text-white"
-        placeholder="Password"
-        placeholderTextColor="#ccc"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-
-      <Button title="Login" onPress={handleLogin} />
-
-      <Pressable className="mt-4" onPress={() => router.push("/register")}>
-        <Text className="text-light-100 text-sm text-center underline">
-          Don’t have an account? Register
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      className="flex-1 justify-center items-center px-4 bg-primary"
+    >
+      <View className="w-full max-w-md bg-light-50 rounded-2xl p-6 shadow-lg">
+        <Text className="text-3xl font-bold text-light-100 mb-6 text-center">
+          Welcome Back!
         </Text>
-      </Pressable>
-    </View>
+
+
+        <TextInput
+          className="border border-gray-300 rounded-xl px-4 py-3 mb-4 text-dark bg-white"
+          placeholder="Email"
+          placeholderTextColor="#999"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <TextInput
+          className="border border-gray-300 rounded-xl px-4 py-3 mb-6 text-dark bg-white"
+          placeholder="Password"
+          placeholderTextColor="#999"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+
+        <Button title="Login" onPress={handleLogin} />
+
+        <Pressable
+          className="mt-4"
+          onPress={() => router.push("/register")}
+        >
+          <Text className="text-sm text-center text-gray-600 underline">
+            Don’t have an account? Register
+          </Text>
+        </Pressable>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
